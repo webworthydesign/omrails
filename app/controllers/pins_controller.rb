@@ -1,7 +1,10 @@
 class PinsController < ApplicationController
+	before_filter :authenticate_user!, except: [:index]
+
   # GET /pins
   # GET /pins.json
   def index
+    #@pins = current_user.pins.all #if we wanted to only show current users pins in the main list
     @pins = Pin.all
 
     respond_to do |format|
@@ -24,7 +27,7 @@ class PinsController < ApplicationController
   # GET /pins/new
   # GET /pins/new.json
   def new
-    @pin = Pin.new
+    @pin = current_user.pins.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -34,13 +37,13 @@ class PinsController < ApplicationController
 
   # GET /pins/1/edit
   def edit
-    @pin = Pin.find(params[:id])
+    @pin = current_user.pins.find(params[:id])
   end
 
   # POST /pins
   # POST /pins.json
   def create
-    @pin = Pin.new(params[:pin])
+    @pin = current_user.pins.new(params[:pin])
 
     respond_to do |format|
       if @pin.save
@@ -56,7 +59,7 @@ class PinsController < ApplicationController
   # PUT /pins/1
   # PUT /pins/1.json
   def update
-    @pin = Pin.find(params[:id])
+    @pin = current_user.pins.find(params[:id])
 
     respond_to do |format|
       if @pin.update_attributes(params[:pin])
@@ -72,7 +75,7 @@ class PinsController < ApplicationController
   # DELETE /pins/1
   # DELETE /pins/1.json
   def destroy
-    @pin = Pin.find(params[:id])
+    @pin = current_user.pins.find(params[:id])
     @pin.destroy
 
     respond_to do |format|
