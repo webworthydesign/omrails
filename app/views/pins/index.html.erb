@@ -3,16 +3,18 @@
 <table class="table table-striped">
   <thead>
   <tr>
+    <th>Image</th>
     <th>Description</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th></th><!--Header for Show-->
+    <th></th><!--Header for Edit-->
+    <th></th><!--Header for Destroy-->
   </tr>
   </thead>
 
   <tbody>
   <% @pins.each do |pin| %>
     <tr>
+      <td><%= image_tag pin.image(:thumb) %></td>
       <td><%= pin.description %></td>
       <td><%= link_to 'Show', pin %></td>
       <% if current_user == pin.user %>
