@@ -1,31 +1,17 @@
-<h1>Listing pins</h1>
-
-<table class="table table-striped">
-  <thead>
-  <tr>
-    <th>Image</th>
-    <th>Description</th>
-    <th></th><!--Header for Show-->
-    <th></th><!--Header for Edit-->
-    <th></th><!--Header for Destroy-->
-  </tr>
-  </thead>
-
-  <tbody>
+<div id="pins">
   <% @pins.each do |pin| %>
-    <tr>
-      <td><%= image_tag pin.image(:thumb) %></td>
-      <td><%= pin.description %></td>
-      <td><%= link_to 'Show', pin %></td>
-      <% if current_user == pin.user %>
-        <td><%= link_to 'Edit', edit_pin_path(pin) %></td>
-        <td><%= link_to 'Destroy', pin, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      <% end %>
-    </tr>
+    <div class="box">
+      <%#= image_tag pin.image(:medium) %>
+      <%= link_to (image_tag pin.image(:medium)), pin %>
+      <p class="description">"<%= pin.description %>"</p>
+      <p><strong>Posted by <%= pin.user.name %></strong></p>
+      <p>
+        <%#= link_to 'Show', pin %>
+        <% if current_user == pin.user %>
+          <%= link_to 'Edit', edit_pin_path(pin) %>
+          <%= link_to 'Destroy', pin, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <% end %>
+      </p>
+    </div>
   <% end %>
-  </tbody>
-</table>
-
-<br/>
-
-<%= link_to 'New Pin', new_pin_path %>
+</div>
