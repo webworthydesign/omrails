@@ -5,7 +5,7 @@ class PinsController < ApplicationController
   # GET /pins.json
   def index
     #@pins = current_user.pins.all #if we wanted to only show current users pins in the main list
-    @pins = Pin.order('created_at desc')
+	  @pins = Pin.order('created_at desc').page(params[:page]).per_page(20)
 
     respond_to do |format|
       format.html # index.html.erb
