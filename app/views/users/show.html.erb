@@ -1,13 +1,14 @@
-<% unless user_signed_in? %>
-  <%= render 'pages/home' %>
-<% end %>
+<h1><%= @user.name %>'s Pins</h1>
+
+<%= will_paginate @pins %>
+
 <div id="pins">
   <% @pins.each do |pin| %>
     <div class="box">
       <%#= image_tag pin.image(:medium) %>
       <%= link_to (image_tag pin.image(:medium)), pin %>
       <p class="description">"<%= pin.description %>"</p>
-      <p><strong>Posted by <%= link_to pin.user.name, pin.user %></strong></p>
+      <!--<p><strong>Posted by <%#= pin.user.name %></strong></p>-->
       <p>
         <%#= link_to 'Show', pin %>
         <% if current_user == pin.user %>
